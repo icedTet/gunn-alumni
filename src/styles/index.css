@@ -22,8 +22,8 @@ code {
 a{
     @apply text-rose-800 underline;
 }
-* {
-    /* @apply transition-colors duration-150; */
+button {
+    @apply transition-colors duration-150;
 }
 svg {
     /* @apply transition-none; */
@@ -46,7 +46,7 @@ radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
     @apply text-gray-900/30 font-medium font-wsans text-sm;
 }
 .btn-primary {
-    @apply w-fit bg-rose-500 hover:bg-rose-700 text-white font-wsans font-bold py-2 px-4 rounded-2xl text-lg disabled:opacity-20 disabled:cursor-not-allowed;
+    @apply w-fit bg-rose-900 hover:bg-rose-700 text-white font-wsans font-bold py-2 px-4 rounded-2xl text-lg disabled:opacity-20 disabled:cursor-not-allowed;
 }
 
 

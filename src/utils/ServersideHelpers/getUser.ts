@@ -16,13 +16,17 @@ export const getUser = (id: string) =>
   })) as any as User | null;
 export const getUserByEmail = (email: string) =>
   Mongo.then((mongo) =>
-    mongo
-      .db("UserData")
-      .collection("users")
-      .findOne({
-        email,
-      })
+    mongo.db("UserData").collection("users").findOne({
+      email,
+    })
   ).then((x) => ({
     ...x,
     _id: x._id.toString(),
   })) as any as User | null;
+export const updateUser = (id: string, data: Partial<User>) =>
+  Mongo.then((mongo) =>
+    mongo
+      .db("UserData")
+      .collection("users")
+      .updateOne({ _id: new ObjectId(id) }, { $set: data })
+  );

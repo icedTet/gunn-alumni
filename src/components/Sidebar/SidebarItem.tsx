@@ -14,7 +14,7 @@ export const SidebarItem = (props: {
       <div
         className={`flex flex-row items-center gap-4 px-6 py-4 cursor-pointer ${
           selected && `text-rose-900`
-        } text-gray-600 hover:text-rose-600 hover:bg-gray-100/50 rounded-2xl transition-colors duration-150 font-medium stroke-2`}
+        } text-gray-600 hover:text-rose-600 hover:bg-gray-150 rounded-2xl transition-colors duration-150 font-medium stroke-2`}
       >
         {icon}
         <span className={``}>{text}</span>

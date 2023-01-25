@@ -1,6 +1,7 @@
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { GetServerSideProps } from "next/types";
 import { useEffect, useRef, useState } from "react";
+import { UpdateProfileModal } from "../../components/hiddens/UpdateProfileModal";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { UserProfile } from "../../components/user/UserProfile";
 import { getUserID } from "../../utils/Clients/AuthManager";
@@ -10,6 +11,7 @@ import { GivenUser } from "../../utils/types/user";
 export const UserAppearance = (props: { user: GivenUser }) => {
   const { user } = props;
   const [pfpFile, setPfpFile] = useState(null as File | null);
+  const [croppedPFP, setCroppedPFP] = useState(null as File | null);
   const [pfpUrl, setPfpUrl] = useState(user.pfp);
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
@@ -23,14 +25,9 @@ export const UserAppearance = (props: { user: GivenUser }) => {
     setEmail(user.email);
     setUsername(user.username);
     setPfpFile(null);
+    setPfpUrl(user.pfp);
     setChanged(false);
   };
-  useEffect(() => {
-    if (pfpFile) {
-      const objectUrl = URL.createObjectURL(pfpFile);
-      setPfpUrl(objectUrl);
-    }
-  }, [pfpFile]);
 
   return (
     <div className={`w-full min-h-screen flex flex-row`}>
@@ -59,12 +56,12 @@ export const UserAppearance = (props: { user: GivenUser }) => {
           >
             <div className={`flex flex-col gap-4`}>
               <div
-                className={`relative group cursor-pointer overflow-hidden rounded-xl w-24 h-24 flex-shrink-0`}
+                className={`relative group cursor-pointer overflow-hidden rounded-3xl w-24 h-24 flex-shrink-0`}
               >
                 <UserProfile
                   user={user}
-                //   pfp={}
-                  className={`w-full h-full drop-shadow-md group-hover:blur-sm transition-all rounded-2xl`}
+                  pfp={pfpUrl}
+                  className={`w-full h-full drop-shadow-md group-hover:blur-sm transition-all rounded-3xl`}
                 />
                 <div
                   className={`flex flex-col gap-2 items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gray-900/50 w-full h-full group-hover:opacity-100 opacity-0 transition-all text-gray-300`}
@@ -143,14 +140,18 @@ export const UserAppearance = (props: { user: GivenUser }) => {
 
             {/* <div> */}
           </div>
-          {/* <UpdateProfileModal
+          <UpdateProfileModal
             profilePicture={pfpFile}
-            returnCroppedImage={(f) => setcroppedPfpFile(f)}
+            returnCroppedImage={(f) => {
+              setPfpUrl(f)
+              setPfpFile(null);
+              setChanged(true);
+            }}
             onCancel={() => {
               setPfpFile(null);
-              setcroppedPfpFile(null);
+              setCroppedPFP(null);
             }}
-          /> */}
+          />
         </div>
       </div>
     </div>

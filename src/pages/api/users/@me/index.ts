@@ -1,10 +1,8 @@
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Encryptions } from "../../../utils/classes/Encryptions";
-import { getUserID } from "../../../utils/Clients/AuthManager";
-import Mongo from "../../../utils/Clients/Mongo";
-import { getUser } from "../../../utils/ServersideHelpers/getUser";
-import { GivenUser, User } from "../../../utils/types/user";
+import { getUserID } from "../../../../utils/Clients/AuthManager";
+import { getUser } from "../../../../utils/ServersideHelpers/getUser";
+import { GivenUser } from "../../../../utils/types/user";
 type NotFoundResponse = null;
 export type SelfUserResponse = GivenUser | NotFoundResponse;
 export default async function handler(

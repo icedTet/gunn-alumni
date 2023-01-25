@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Gunn Alumni</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className={`w-screen h-screen bg-gray-100`}>
+      <div className={`w-screen h-screen bg-gray-100`} id="root">
         <Component {...pageProps} />
       </div>
     </>
