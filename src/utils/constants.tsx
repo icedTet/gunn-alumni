@@ -1,4 +1,4 @@
 export const siteURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://galum.tet.moe";
+    : "https://alumni.tet.moe";
