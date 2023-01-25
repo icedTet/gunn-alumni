@@ -17,7 +17,6 @@ export default async function handler(
       return res.status(401).json(null);
     }
     const user = await getUser(userID);
-    console.log({ user });
     if (!user) {
       return res.status(404).json(null);
     }

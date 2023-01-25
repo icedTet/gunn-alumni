@@ -16,7 +16,6 @@ const register = async (user: Partial<User>) => {
     },
     body: JSON.stringify({ user }),
   });
-  console.log({ response });
   // let status = await response.status;
   if (~~(response.status / 100) === 5) {
     return null;
@@ -36,14 +35,6 @@ export const Register = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const verifyForm = useCallback(() => {
-    console.log("verifying form", {
-      username,
-      email,
-      password,
-      confirmPassword,
-      firstName,
-      lastName,
-    });
     // Check if all fields are filled out
     if (!email) {
       setError("Missing email");
@@ -71,10 +62,6 @@ export const Register = () => {
     }
     if (!email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) {
       setError("Invalid email");
-      console.log(
-        email,
-        email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
-      );
       return false;
     }
     if (!username.match(/^[a-zA-Z0-9_.+-]+$/)) {
@@ -178,7 +165,6 @@ export const Register = () => {
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
-                console.log(e.target.value);
               }}
               disabled={loading}
             />

@@ -1,24 +1,20 @@
 import { GetServerSideProps } from "next/types";
-import { CompleteSetup } from "../components/Dashboard/ToDo";
-import { Sidebar } from "../components/Sidebar/Sidebar";
-import { getUserID } from "../utils/Clients/AuthManager";
-import { getUser } from "../utils/ServersideHelpers/getUser";
-import { GivenUser } from "../utils/types/user";
+import { Sidebar } from "../../components/Sidebar/Sidebar";
+import { getUserID } from "../../utils/Clients/AuthManager";
+import { getUser } from "../../utils/ServersideHelpers/getUser";
+import { GivenUser } from "../../utils/types/user";
 
-export const Dashboard = (props: { user: GivenUser }) => {
+export const ClassDirectory = (props: { user: GivenUser }) => {
   const { user } = props;
   return (
     <div className={`w-full min-h-screen flex flex-row`}>
       <Sidebar user={user} />
-      <div className={`flex-grow h-screen break-all`}>
-        Dashboard {JSON.stringify(props.user)} <a href="/">back</a>
+      <div className={`flex-grow h-screen bg-gray-50`}>
+        Class Directory {JSON.stringify(props.user)} <a href="/">back</a>
       </div>
-      <CompleteSetup user={user} />
     </div>
   );
 };
-export default Dashboard;
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const userID = await getUserID(context.req);
   if (userID) {
@@ -38,3 +34,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
   // ...
 };
+export default ClassDirectory;

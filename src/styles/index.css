@@ -23,10 +23,10 @@ a{
     @apply text-rose-800 underline;
 }
 * {
-    @apply transition-colors duration-150;
+    /* @apply transition-colors duration-150; */
 }
 svg {
-    @apply transition-none;
+    /* @apply transition-none; */
 }
 .meshy {
     background-color:hsla(0,100%,59%,1);
@@ -42,13 +42,16 @@ radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
 .basicinput {
     @apply w-full h-12 rounded-lg border border-gray-200 focus:border-rose-800 focus:outline-none px-4 bg-gray-100/25 shadow-inner font-wsans text-base text-gray-600 disabled:opacity-50;
 }
+.inputlabel {
+    @apply text-gray-900/30 font-medium font-wsans text-sm;
+}
 .btn-primary {
-    @apply w-fit bg-rose-500 hover:bg-rose-700 text-white font-wsans font-bold py-2 px-4 rounded-2xl text-lg;
+    @apply w-fit bg-rose-500 hover:bg-rose-700 text-white font-wsans font-bold py-2 px-4 rounded-2xl text-lg disabled:opacity-20 disabled:cursor-not-allowed;
 }
 
 
 .auth-nextAction {
-    @apply border border-gray-900/20 px-4 h-20 w-full rounded-2xl flex flex-row gap-4 items-center hover:bg-gray-900/5 transition-all duration-300 cursor-pointer
+    @apply border border-gray-900/10 px-4 h-20 w-full rounded-2xl flex flex-row gap-4 items-center hover:bg-gray-900/5 transition-all duration-300 cursor-pointer
 }
 
 .auth-nextAction-icon {

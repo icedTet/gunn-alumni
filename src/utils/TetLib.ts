@@ -98,7 +98,6 @@ export const TetLib = {
         }
       }
     }
-    console.log(`${decimal}: ${closestFractionNumerator} / ${closestFractionDenominator}`)
     return { numerator: closestFractionNumerator, denominator: closestFractionDenominator };
   },
 

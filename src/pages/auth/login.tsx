@@ -18,7 +18,6 @@ const login = async (email: string, password: string) => {
     },
     body: JSON.stringify({ email, password }),
   });
-  console.log({ response });
   // let status = await response.status;
   if (~~(response.status / 100) === 5) {
     return null;
@@ -35,10 +34,6 @@ export const Register = () => {
   const [error, setError] = useState("");
   const router = useRouter();
   const verifyForm = useCallback(() => {
-    console.log("verifying form", {
-      email,
-      password,
-    });
     // Check if all fields are filled out
     if (!email) {
       setError("Missing email");
@@ -50,10 +45,6 @@ export const Register = () => {
     }
     if (!email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)) {
       setError("Invalid email");
-      console.log(
-        email,
-        email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
-      );
       return false;
     }
     // everything is good, proceed to register with server
