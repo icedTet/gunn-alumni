@@ -25,9 +25,9 @@ export default function Email(props: {
         <Container style={container}>
           <Section style={{ marginTop: "32px" }}>
             <Img
-              src={`https://disadus.app/logo.png`}
-              width="40"
-              height="37"
+              src={`https://alumni.tet.moe/logo.png`}
+              width="48"
+              height="48"
               alt="Vercel"
               style={logo}
             />
