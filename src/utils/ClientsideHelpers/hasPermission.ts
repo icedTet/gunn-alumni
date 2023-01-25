@@ -9,7 +9,10 @@ const permissionList = {
   viewAdminPanel: 0,
   manageClass: 1,
 };
-export const hasPermission = (user: PublicUser, permission: keyof typeof permissionList) => {
+export const hasPermission = (
+  user: PublicUser,
+  permission: keyof typeof permissionList
+) => {
   const permissionLevel = permissionList[permission];
   if (permissionLevel === undefined) {
     throw new Error("Invalid permission");
@@ -17,6 +20,6 @@ export const hasPermission = (user: PublicUser, permission: keyof typeof permiss
   const userPermissionLevel =
     user.tags
       ?.map((tag) => minimumPermissionRequired[tag])
-      .reduce((a, b) => Math.min(a, b)) ?? 0;
+      .reduce((a, b) => Math.min(a, b)) ?? 4;
   return userPermissionLevel <= permissionLevel;
 };
