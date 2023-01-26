@@ -7,12 +7,13 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { hasPermission } from "../../utils/ClientsideHelpers/hasPermission";
+import { useSelf } from "../../utils/ClientsideHelpers/useSelf";
 import { GivenUser, UserTags } from "../../utils/types/user";
 import { UserProfile } from "../user/UserProfile";
 import { SidebarItem } from "./SidebarItem";
 
 export const Sidebar = (props: { user: GivenUser }) => {
-  const { user } = props;
+    const user = useSelf(props.user)
   const router = useRouter();
   return (
     <div className={`w-96 h-screen bg-gray-100 p-8 shrink-0`}>
@@ -127,7 +128,7 @@ export const Sidebar = (props: { user: GivenUser }) => {
             <span className={` text-base font-bold text-gray-900`}>
               {user.firstName} {user.lastName}
             </span>
-            <span className={` text-xs font-medium text-gray-900/30`}>
+            <span className={` text-sm font-medium text-gray-900/30`}>
               @{user.username}
             </span>
           </div>

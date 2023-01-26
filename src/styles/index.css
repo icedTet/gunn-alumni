@@ -69,3 +69,14 @@ radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
 .mutedLink {
     @apply text-gray-900/30 text-sm no-underline hover:text-gray-900/50;
 }
+
+
+#nprogress .bar {
+   @apply bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 h-1 w-full;
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+  
+    width: 100%;
+  }

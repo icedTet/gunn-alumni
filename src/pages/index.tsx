@@ -7,12 +7,13 @@ import { useEffect, useState } from "react";
 import { NotLoggedInLanding } from "../components/NotLoggedIn";
 import { UserProfile } from "../components/user/UserProfile";
 import { getUserID } from "../utils/Clients/AuthManager";
+import { useSelf } from "../utils/ClientsideHelpers/useSelf";
 import { siteURL } from "../utils/constants";
 import { getUser } from "../utils/ServersideHelpers/getUser";
 import { GivenUser } from "../utils/types/user";
 
 export default function Home(props: { user?: GivenUser }) {
-  const { user } = props;
+  const user = useSelf(props.user)
   const [startAnim, setStartAnim] = useState(!!user);
   const router = useRouter();
   useEffect(() => {

@@ -14,8 +14,6 @@ export default async function handler(
   res: NextApiResponse<SelfUserResponse>
 ) {
   if (req.method === "POST") {
-    const data = req.body.user as Partial<User>;
-
     const userID = await getUserID(req);
     if (!userID) {
       return res.status(401).json(null);
@@ -28,12 +26,14 @@ export default async function handler(
     if (req.body.lastName) user.lastName = req.body.lastName;
     if (req.body.bio) user.bio = req.body.bio;
     if (req.body.classOf) user.classOf = req.body.classOf;
-    delete user._id;
     delete user.password;
-    delete user.tags;
-    delete user.pfp;
-    delete user.email;
-    await updateUser(userID, user);
+    console.log(user, req.body);
+    await updateUser(userID, {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      bio: user.bio,
+      classOf: user.classOf,
+    });
 
     return res.status(200).json(user);
   }

@@ -1,15 +1,19 @@
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
 import { GetServerSideProps } from "next/types";
 import { useEffect, useRef, useState } from "react";
 import { UpdateProfileModal } from "../../components/hiddens/UpdateProfileModal";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { UserProfile } from "../../components/user/UserProfile";
+import { SelfUserClass } from "../../utils/classes/UserClass";
 import { getUserID } from "../../utils/Clients/AuthManager";
+import { useSelf } from "../../utils/ClientsideHelpers/useSelf";
 import { getUser } from "../../utils/ServersideHelpers/getUser";
+import { observe } from "../../utils/ServersideHelpers/nprogress";
 import { GivenUser } from "../../utils/types/user";
 
 export const UserAppearance = (props: { user: GivenUser }) => {
-  const { user } = props;
+  const user = useSelf(props.user);
   const [pfpFile, setPfpFile] = useState(null as File | null);
   const [croppedPFP, setCroppedPFP] = useState(null as File | null);
   const [pfpUrl, setPfpUrl] = useState(user.pfp);
@@ -18,7 +22,9 @@ export const UserAppearance = (props: { user: GivenUser }) => {
   const [email, setEmail] = useState(user.email);
   const [username, setUsername] = useState(user.username);
   const [changed, setChanged] = useState(false);
+  const [changing, setChanging] = useState(false);
   const pfpinput = useRef<HTMLInputElement>(null);
+  const router = useRouter();
   const revert = () => {
     setFirstName(user.firstName);
     setLastName(user.lastName);
@@ -27,6 +33,40 @@ export const UserAppearance = (props: { user: GivenUser }) => {
     setPfpFile(null);
     setPfpUrl(user.pfp);
     setChanged(false);
+  };
+  const update = async () => {
+    if (changing) return;
+    setChanging(true);
+    if (pfpUrl.startsWith("data")) {
+      // upload the pfp
+      const response = await fetch("/api/users/@me/updatePFP", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          base64: pfpUrl,
+        }),
+      });
+    }
+    const response = await fetch("/api/users/@me/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      SelfUserClass.getInstance().user = data;
+    }
+
+    setChanging(false);
+    setChanged(false);
+    // router.rel
   };
 
   return (
@@ -85,6 +125,7 @@ export const UserAppearance = (props: { user: GivenUser }) => {
                       setFirstName(e.target.value);
                       setChanged(true);
                     }}
+                    disabled={changing}
                   />
                 </div>
                 <div className={`flex flex-col gap-0.5 grow`}>
@@ -97,6 +138,7 @@ export const UserAppearance = (props: { user: GivenUser }) => {
                       setLastName(e.target.value);
                       setChanged(true);
                     }}
+                    disabled={changing}
                   />
                 </div>
               </div>
@@ -110,6 +152,7 @@ export const UserAppearance = (props: { user: GivenUser }) => {
                     setUsername(e.target.value);
                     setChanged(true);
                   }}
+                  disabled={changing}
                 />
               </div>
               <div className={`flex flex-col gap-0.5`}>
@@ -122,6 +165,7 @@ export const UserAppearance = (props: { user: GivenUser }) => {
                     setEmail(e.target.value);
                     setChanged(true);
                   }}
+                  disabled={changing}
                 />
               </div>
               <div className={`flex flex-row justify-end gap-4`}>
@@ -132,7 +176,11 @@ export const UserAppearance = (props: { user: GivenUser }) => {
                 >
                   Revert
                 </button>
-                <button className={`btn-primary`} disabled={!changed}>
+                <button
+                  className={`btn-primary`}
+                  disabled={!changed || changing}
+                  onClick={() => observe(update)}
+                >
                   Save Changes
                 </button>
               </div>
@@ -143,7 +191,7 @@ export const UserAppearance = (props: { user: GivenUser }) => {
           <UpdateProfileModal
             profilePicture={pfpFile}
             returnCroppedImage={(f) => {
-              setPfpUrl(f)
+              setPfpUrl(f);
               setPfpFile(null);
               setChanged(true);
             }}

@@ -1,12 +1,13 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelf } from "../../utils/ClientsideHelpers/useSelf";
 import { GivenUser } from "../../utils/types/user";
 
 export const CompleteSetup = (props: { user: GivenUser }) => {
-  const { user } = props;
+  const user = useSelf(props.user)
   // if user is missing any of the following fields, they need to complete setup
-  if (user.pfp && !user.bio && !user.classOf) return null;
+  if (user.pfp && user.bio && user.classOf) return null;
   const router = useRouter();
   return (
     <div
@@ -30,7 +31,7 @@ export const CompleteSetup = (props: { user: GivenUser }) => {
                 user.pfp ? `opacity-50` : `opacity-100`
               }`}
               onClick={() => {
-                !user.pfp && router.push("/settings/me");
+                !user.pfp && router.push("/settings");
               }}
             >
               <span className={`text-3xl`}>👦</span>{" "}

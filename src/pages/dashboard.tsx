@@ -2,11 +2,12 @@ import { GetServerSideProps } from "next/types";
 import { CompleteSetup } from "../components/Dashboard/ToDo";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { getUserID } from "../utils/Clients/AuthManager";
+import { useSelf } from "../utils/ClientsideHelpers/useSelf";
 import { getUser } from "../utils/ServersideHelpers/getUser";
 import { GivenUser } from "../utils/types/user";
 
 export const Dashboard = (props: { user: GivenUser }) => {
-  const { user } = props;
+  const user = useSelf(props.user)
   return (
     <div className={`w-full min-h-screen flex flex-row`}>
       <Sidebar user={user} />

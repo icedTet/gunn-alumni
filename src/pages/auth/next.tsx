@@ -5,12 +5,13 @@ import { GetServerSideProps } from "next/types";
 import { useEffect } from "react";
 import styles from "../../styles/registration.module.css";
 import { getUserID } from "../../utils/Clients/AuthManager";
+import { useSelf } from "../../utils/ClientsideHelpers/useSelf";
 import { siteURL } from "../../utils/constants";
 import { getUser } from "../../utils/ServersideHelpers/getUser";
 import { GivenUser } from "../../utils/types/user";
 export const NextSteps = (props: { user?: GivenUser }) => {
   const router = useRouter();
-  const { user } = props;
+  const user = useSelf(props.user)
   useEffect(() => {
     if (router.query.token) {
       localStorage.setItem("token", router.query.token as string);
