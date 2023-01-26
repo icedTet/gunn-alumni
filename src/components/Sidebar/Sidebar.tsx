@@ -2,6 +2,7 @@ import {
   CogIcon,
   GlobeAltIcon,
   HomeIcon,
+  ShieldCheckIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -94,7 +95,7 @@ export const Sidebar = (props: { user: GivenUser }) => {
             />
             <SidebarItem
               icon={<UserGroupIcon className={`h-6 w-6`} />}
-              text="Class Directory"
+              text="Manage Class"
               href="/settings"
             />
           </div>
@@ -104,12 +105,12 @@ export const Sidebar = (props: { user: GivenUser }) => {
             <span
               className={`font-poppins text-sm font-bold uppercase text-gray-900/30 pb-2`}
             >
-              Funny Admin Stuff
+              Admin
             </span>
 
             <SidebarItem
-              icon={<HomeIcon className={`h-6 w-6`} />}
-              text="Home"
+              icon={<ShieldCheckIcon className={`h-6 w-6`} />}
+              text="Security"
               href="/dashboard"
             />
             <SidebarItem
