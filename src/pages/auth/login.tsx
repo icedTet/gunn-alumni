@@ -9,6 +9,7 @@ import { RegisterResultResponse } from "../api/auth/register";
 import { useRouter } from "next/router";
 import { LoginResultResponse } from "../api/auth/login";
 import Link from "next/link";
+import { SelfUserClass } from "../../utils/classes/UserClass";
 const login = async (email: string, password: string) => {
   // register the user with the server
   const response = await fetch("/api/auth/login", {
@@ -58,6 +59,7 @@ export const Register = () => {
       } else {
         setSuccess(true);
         localStorage.setItem("token", response.token);
+        SelfUserClass.getInstance().fetchUser();
         router.push("/dashboard");
       }
     });

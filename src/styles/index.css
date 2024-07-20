@@ -19,9 +19,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-a{
-    @apply text-rose-800 underline;
-}
+/* a{
+    @apply text-rose-800;
+} */
 button {
     @apply transition-colors duration-150;
 }
@@ -51,7 +51,7 @@ radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%);
 
 
 .auth-nextAction {
-    @apply border border-gray-900/10 px-4 h-20 w-full rounded-2xl flex flex-row gap-4 items-center hover:bg-gray-900/5 transition-all duration-300 cursor-pointer
+    @apply border border-gray-900/10 px-4 min-h-[80px] py-4 w-full rounded-2xl flex flex-row gap-4 items-center hover:bg-gray-900/5 transition-all duration-300 cursor-pointer
 }
 
 .auth-nextAction-icon {

@@ -98,7 +98,7 @@ export const TetLib = {
         }
       }
     }
-    return { numerator: closestFractionNumerator, denominator: closestFractionDenominator };
+    return { numerato: closestFractionNumerator, denominator: closestFractionDenominator };
   },
 
   // Function to return

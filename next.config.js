@@ -128,6 +128,22 @@ module.exports = ({
     // Important: return the modified config
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+        port: '',
+        pathname: '**',
+      }
+    ],
+  },
   // async headers() {
   // },
 })

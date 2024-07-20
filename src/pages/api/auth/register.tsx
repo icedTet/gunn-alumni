@@ -128,6 +128,7 @@ const handleSignupStage2 = async (
     firstName: unverifiedUser.firstName,
     lastName: unverifiedUser.lastName,
     createdAt: Date.now(),
+    verifiedBy: "SignupSuccessful"
   } as Partial<User>;
   await mongo
     .db("UserData")

@@ -1,4 +1,4 @@
-import { PublicUser } from "../types/user";
+import { GivenUser, PublicUser } from "../types/user";
 const minimumPermissionRequired = {
   webmaster: 0,
   admin: 1,
@@ -10,7 +10,7 @@ const permissionList = {
   manageClass: 1,
 };
 export const hasPermission = (
-  user: PublicUser,
+  user: PublicUser | GivenUser,
   permission: keyof typeof permissionList
 ) => {
   const permissionLevel = permissionList[permission];
@@ -18,7 +18,7 @@ export const hasPermission = (
     throw new Error("Invalid permission");
   }
   const userPermissionLevel =
-    user.tags
+    user?.tags
       ?.map((tag) => minimumPermissionRequired[tag])
       .reduce((a, b) => Math.min(a, b)) ?? 4;
   return userPermissionLevel <= permissionLevel;

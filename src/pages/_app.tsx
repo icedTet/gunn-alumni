@@ -4,8 +4,13 @@ import "../styles/index.css";
 import "../styles/nprogress.css";
 import progress, { useNProgress } from "../utils/ServersideHelpers/nprogress";
 import { ProgressBar } from "../components/hiddens/ProgressBar";
+import { useRouter } from "next/router";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import { DirectoryViewer } from "../components/Users/ClassDirectory";
+import { Navbar } from "../components/Navbar";
 function MyApp({ Component, pageProps }: AppProps) {
-  useNProgress()
+  useNProgress();
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -13,8 +18,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ProgressBar />
-      <div className={`w-screen h-screen bg-gray-100`} id="root">
-        
+      <div className={`w-screen h-screen bg-gray-50`} id="root">
+        <Navbar />
         <Component {...pageProps} />
       </div>
     </>

@@ -11,8 +11,18 @@ export class SelfUserClass extends EventEmitter {
   }
   private constructor() {
     super();
+    this.fetchUser()
   }
   private _user: GivenUser | null = null;
+  async fetchUser() {
+    await fetch("/api/users/@me")
+      .then((x) => x.json())
+      .then((x) => {
+        if (x) {
+          this.user = x;
+        }
+      });
+  }
   get user() {
     return this._user;
   }

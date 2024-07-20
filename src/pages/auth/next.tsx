@@ -39,6 +39,7 @@ export const NextSteps = (props: { user?: GivenUser }) => {
             </p>
           </div>
           <div className="flex flex-col gap-4">
+            <Link href={"/dashboard"}>
             <div className={`auth-nextAction`}>
               <span className={`text-3xl`}>🎨</span>{" "}
               <div className="flex flex-col gap-1 flex-grow">
@@ -51,6 +52,7 @@ export const NextSteps = (props: { user?: GivenUser }) => {
               </div>
               <ChevronRightIcon className="w-4 h-4 text-gray-900/40" />
             </div>
+            </Link>
             <div className={`auth-nextAction`}>
               <span className={`text-3xl`}>✍️</span>{" "}
               <div className="auth-nextAction-content">

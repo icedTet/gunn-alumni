@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getUserID } from "../../../../utils/Clients/AuthManager";
 import Mongo from "../../../../utils/Clients/Mongo";
 import {
+  cleanlinksInput,
   getUser,
   updateUser,
 } from "../../../../utils/ServersideHelpers/getUser";
@@ -26,6 +27,7 @@ export default async function handler(
     if (req.body.lastName) user.lastName = req.body.lastName;
     if (req.body.bio) user.bio = req.body.bio;
     if (req.body.classOf) user.classOf = req.body.classOf;
+    if (req.body.links) user.links = req.body.links;
     delete user.password;
     console.log(user, req.body);
     await updateUser(userID, {
@@ -34,6 +36,18 @@ export default async function handler(
       bio: user.bio,
       classOf: user.classOf,
     });
+    if (req.body.links) {
+      await getUser(userID).then(async (user) => {
+        if (!user) {
+          return res.status(404).json(null);
+        }
+        user.links = cleanlinksInput(req.body.links);
+        await updateUser(userID, {
+          links: user.links,
+        });
+      });
+    }
+    
 
     return res.status(200).json(user);
   }
